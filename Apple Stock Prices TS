@@ -1,0 +1,12 @@
+dataset = read.table(file.choose(), header = T, sep=";")
+x = dataset$Close
+x = ts(x)
+plot(x, type="b")
+install.packages("astsa")
+library(astsa)
+lag1.plot(x,1)
+acf(x, xlim=c(1,251))
+xlag1=lag(x,-1) #creating lag data
+y=cbind(x,xlag1)
+ar1=lm(y[,1]~y[,2]) #AR(1) for the data
+acf(ar1fit$residuals, xlim=c(1,250))
